@@ -1,20 +1,20 @@
 public class TreeSort{
 
-	private Integer root;
-	private BinaryTree left;
-	private BinaryTree right;
+	private Comparable root;
+	private TreeSort left;
+	private TreeSort right;
 
 	public TreeSort tree;
 
 	//constructor por defecto
-	public BinaryTree(){
+	public TreeSort(){
 		root = null;
 		left = null;
 		right = null;
 	}
 
 	//constructor con valor para la raiz
-	public BinaryTree(Integer root){
+	public TreeSort(Comparable root){
 		this.root = root;
 		left = null;
 		right = null;
@@ -26,22 +26,26 @@ public class TreeSort{
 	}
 
 	//destruye o vacia el arbol
-	public void makeEmpey(){
+	public void makeEmpty(){
 		root = null;
+	}
+
+	public Comparable getRoot(){
+		return root;
 	}
 	
 	//inserta un elemento en el arbol y no considera repetidos
-	public void insert(Integer root){
+	public void insert(Comparable root){
 		if (this.root == null){
 			this.root = root;
 		}
 		else{
-			if (this.root > root){
+			if ((this.root).compareTo(root) > 0){
 				if (left != null){
 					left.insert(root);
 				}
 				else{
-					this.left = new BinaryTree(root); 
+					this.left = new TreeSort(root); 
 				}//end of if-else
 			}
 			else{
@@ -49,13 +53,13 @@ public class TreeSort{
 					right.insert(root);
 				}
 				else{ 
-					this.right = new BinaryTree(root);
+					this.right = new TreeSort(root);
 				}//end of if-else
 			}//end of if-else
 		}//end of if-else
 	}//end of insert
 
-	public boolean search(Integer root){
+	public boolean search(Comparable root){
 		if (this.root == null){
 			return false;
 		}
@@ -64,7 +68,7 @@ public class TreeSort{
 				return true;
 			}
 			else{
-				if (this.root > root){
+				if ((this.root).compareTo(root) > 0){
 					if (this.left == null){
 						return false;
 					}
@@ -84,7 +88,7 @@ public class TreeSort{
 		}//end of if-else
 	}//end of search
 
-	public Integer maximum(){
+	public Comparable maximum(){
 		if (right == null){
 			return root;
 		}
@@ -93,7 +97,7 @@ public class TreeSort{
 		}//end of if-else
 	}//end of maximum
 
-	public Integer minimum(){
+	public Comparable minimum(){
 		if (left == null){
 			return root;
 		}
@@ -102,7 +106,7 @@ public class TreeSort{
 		}//end of if-else
 	}//end of minimum
 
-	public void delete(Integer root){
+	public void delete(Comparable root){
 		if ((tree.isEmpty() == false) && (tree.search(root) == true)){
 			if (this.root == root){
 				if ((this.left == null) && (this.right == null)){
@@ -119,10 +123,10 @@ public class TreeSort{
 				}//end of if-else
 			}
 			else{
-				if (this.root > root){
+				if ((this.root).compareTo(root) > 0){
 					left.delete(root);
 				}//end of if
-				if (this.root < root){
+				if ((this.root).compareTo(root) < 0){
 					right.delete(root);
 				}//end of if
 			}//end of if-else
@@ -147,11 +151,11 @@ public class TreeSort{
 
 		TreeList pointer = makeList();
 		boolean flag = true;
-		Integer now = pointer.element; 
+		Comparable now = pointer.element; 
 
 		while (pointer.next != null){
 			pointer = pointer.next;
-			if (pointer.element < now){
+			if ((pointer.element).compareTo(now) < 0){
 				flag = false;
 			}//end of if
 		}//end of while

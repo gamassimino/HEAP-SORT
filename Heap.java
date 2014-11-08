@@ -40,4 +40,17 @@ public class Heap{
 		}//end of if-else
 	}//end of insert
 
+	
+/*
+	public void delete(){
+		Heap aux = root;
+		if (right != null){
+			right.delete();
+		}
+		if (right == null){
+			aux = root;
+			root = null;
+		}
+	}//end of delete
+*/
 }//end of class
