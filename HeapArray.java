@@ -1,7 +1,7 @@
-public class HeapArray implements PriorityQueues <T>{
+public class HeapArray implements PriorityQueues{
 
 	private static final int MaxStack = 100;
-	private T item[];
+	private Comparable item[];
 	private int lastItem;
 
 	//constructor
@@ -21,7 +21,7 @@ public class HeapArray implements PriorityQueues <T>{
 	}
 
 	//method that insert a new element in a queue
-	public void queued(T element){
+	public void queued(Comparable element){
 		item[lastItem] = element;
 		lastItem++;
 	}
