@@ -21,9 +21,11 @@ public class HeapArray implements PriorityQueue{
 	}
 
 	//method that insert a new element in a queue
-	public void queued(Comparable element){
-		item[lastItem] = element;
-		lastItem++;
+	public void queue(Comparable element){
+		if (lastItem < MaxQueue) {
+			item[lastItem] = element;
+			lastItem++;
+		}
 	}
 
 	//method that delete de min element in a queue
