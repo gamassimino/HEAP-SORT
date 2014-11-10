@@ -1,12 +1,12 @@
-public class HeapArray implements PriorityQueues{
-
-	private static final int MaxStack = 100;
+public class HeapArray implements PriorityQueue{
+	
+	private static final int MaxQueue = 100;
 	private Comparable item[];
 	private int lastItem;
 
 	//constructor
-	public QueuesWhithArray(){
-		item = new Object[MaxStack];
+	public HeapArray(){
+		item = new Comparable[MaxQueue];
 		lastItem = 0;
 	}
 
@@ -27,8 +27,9 @@ public class HeapArray implements PriorityQueues{
 	}
 
 	//method that delete de min element in a queue
-	public void dequeue(){
+	public Comparable dequeue(){
 		lastItem--;
+		return item[lastItem + 1];
 	}
 
 	
