@@ -1,22 +1,43 @@
-public class Heap{
+public class HeapDyn{
 
 	private Comparable root;
-	private Heap left;
-	private Heap right;
+	private HeapDyn left;
+	private HeapDyn right;
 
 	//constructor
-	public Heap(){
+	public HeapDyn(){
 		root = null;
 		left = null;
 		right = null;
 	}
-
+/*
+intercambia los valores se usa para patear el valor insertado para arriba
+*/
 	public void swap(Comparable element){
 		Comparable aux = element;
 		element = this.root;
 		this.root = aux;
 	}
 
+/*
+este metodo nos indica cuando va a estar desbalanceado el hep
+y se puede usar para insertar buscando que rama esta desbalanceada
+y podemos insertar el elemento ahi y si ambas ramas estan balanceadas
+se va hasta el fina de la rama izquierda y donde sea nul ahi se inserta
+*/
+	public boolean balance(){
+		boolean cond = true;
+		if((left == null && right == null) || (left != null && right != null))
+			cond = left.balance() && right.balance();
+		else
+			cond = false;
+		return cond;
+
+	}
+/*
+inserta un elemento el heap
+--- falta ahcer que inserte donde valla y luego lo ordene en su lugar---
+*/
 	public void insert(Comparable element){
 		if (root == null){
 			root = element;
