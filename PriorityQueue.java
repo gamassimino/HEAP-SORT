@@ -1,10 +1,10 @@
 public interface PriorityQueue{
 
-	abstract public boolean isEmpty();
+	public abstract boolean isEmpty();
 
-	abstract public void makeEmpty();
+	public abstract void makeEmpty();
 
-	abstract public void queued(Comparable element);
+	public abstract void queued(Comparable element);
 
-	abstract public void dequeue(); //or get min
+	public abstract Comparable dequeue(); //or get min
 }
