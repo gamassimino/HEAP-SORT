@@ -1,19 +1,19 @@
 import java.util.*;
-public class Tree {
+public class Abb {
 
-	private Tree hi;
+	private Abb hi;
 	private Integer element;
-	private Tree hd;
+	private Abb hd;
 
 	// constructor
-	public Tree(Integer ele){
+	public Abb(Integer ele){
 		hi = null;
 		hd = null;
 		element = ele;
 	}
 
 	// constructor 
-	public Tree(){
+	public Abb(){
 		hi = null;
 		hd = null;
 		element = null;
@@ -68,7 +68,7 @@ public class Tree {
   		System.out.print(element+" ");
  	}
 
-	// find a specific element in the tree 
+	// find a specific element in the Abb 
  	public boolean search(Integer ele){
 		if(element == null)
 			return  false;
@@ -94,7 +94,7 @@ public class Tree {
 	}
 	 
 	 	
-	// return de minimun of the tree
+	// return de minimun of the Abb
  	public Integer min(){
  		if(hi != null && hi.element != null){
  			return hi.min();
@@ -103,7 +103,7 @@ public class Tree {
 	 		return element;
 	 	}
 	}
-// return the max of the tree
+// return the max of the Abb
  	public Integer max(){
  		if(hd != null && hd.element != null){
  			return hd.max();
@@ -168,14 +168,14 @@ public class Tree {
 				if (hd != null)
 					hd.insert(ele);
 				else
-					hd = new Tree(ele);
+					hd = new Abb(ele);
 			}
 			else{
 				if(element > ele){
 					if (hi != null) 
 						hi.insert(ele);
 					else{
-						hi = new Tree(ele);
+						hi = new Abb(ele);
 					}
 				}
 			}
