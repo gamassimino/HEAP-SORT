@@ -1,4 +1,4 @@
-public class TreeSort{
+public class TreeSort {
 
 	private Comparable root;
 	private TreeSort left;
@@ -148,7 +148,6 @@ public class TreeSort{
 	}//end of makeList
 
 	public boolean isABB(){
-
 		TreeList pointer = makeList();
 		boolean flag = true;
 		Comparable now = pointer.element; 
