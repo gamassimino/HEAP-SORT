@@ -157,6 +157,6 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		HeapArray ordArray = new HeapArray();
 		ordArray.heapSort(array, 6);
 		for (int i = 0; i < 6; i++){System.out.println(array[i]);}
-	}
+	}//end of main
 
 }//end of class
