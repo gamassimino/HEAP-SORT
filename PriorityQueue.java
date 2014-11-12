@@ -9,4 +9,6 @@ public interface PriorityQueue{
 	public abstract Comparable dequeued();
 
 	public abstract void heapSort(Comparable [] array, int n);
+
+	public abstract boolean repOk();
 }

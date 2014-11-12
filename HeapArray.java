@@ -127,8 +127,20 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 
 	public void heapSort(Comparable [] array, int n){
 		HeapArray ordArray = new HeapArray();
+		System.out.println(ordArray.repOk());
 		for (int i = 0; i < n; i++){ ordArray.queued(array[i]);}
 		for (int i = 0; i < n; i++){ array[i] = ordArray.dequeued();}
+		System.out.println(ordArray.repOk());
+	}
+
+	public boolean repOk(){
+		boolean flag = true;
+		for (int i=0; i<lastItem; i++){
+			if (item[(2*i)+1] != null) {flag = flag && (item[i].compareTo(item[(2*i)+1]) < 0);}
+			if (item[2*(i+1)] != null) {flag = flag && (item[i].compareTo(item[2*(i+1)]) < 0);}
+			if (item[(2*i)+1] == null) {flag = flag && (item[2*(i+1)] == null);}
+		}
+		return flag;
 	}
 
 	
@@ -141,7 +153,7 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		array[3] = 3;
 		array[4] = 1;
 		array[5] = 8;
-		
+
 		HeapArray ordArray = new HeapArray();
 		ordArray.heapSort(array, 6);
 		for (int i = 0; i < 6; i++){System.out.println(array[i]);}
