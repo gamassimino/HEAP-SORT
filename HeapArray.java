@@ -116,7 +116,7 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 	}
 
 	//method that delete de min element in a queue
-	public Comparable dequeued(){
+	public Comparable dequeue(){
 		int pos = 0;
 		Comparable aux = item[pos];
 		lastItem--;
@@ -129,7 +129,7 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		HeapArray ordArray = new HeapArray();
 		System.out.println(ordArray.repOk());
 		for (int i = 0; i < n; i++){ ordArray.queued(array[i]);}
-		for (int i = 0; i < n; i++){ array[i] = ordArray.dequeued();}
+		for (int i = 0; i < n; i++){ array[i] = ordArray.dequeue();}
 		System.out.println(ordArray.repOk());
 	}
 
@@ -157,6 +157,6 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		HeapArray ordArray = new HeapArray();
 		ordArray.heapSort(array, 6);
 		for (int i = 0; i < 6; i++){System.out.println(array[i]);}
-	}//end of main
+	}
 
 }//end of class

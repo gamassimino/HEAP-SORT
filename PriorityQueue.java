@@ -6,7 +6,7 @@ public interface PriorityQueue{
 
 	public abstract void queued(Comparable element);
 
-	public abstract Comparable dequeued();
+	public abstract Comparable dequeue();
 
 	public abstract void heapSort(Comparable [] array, int n);
 
