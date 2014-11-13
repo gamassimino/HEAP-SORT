@@ -2,11 +2,11 @@ import java.util.*;
 public class Abb {
 
 	private Abb hi;
-	private Integer element;
+	private Comparable element;
 	private Abb hd;
 
 	// constructor
-	public Abb(Integer ele){
+	public Abb(Comparable ele){
 		hi = null;
 		hd = null;
 		element = ele;
@@ -20,12 +20,12 @@ public class Abb {
 	} 
 
 	// return the root
-	public Integer getRoot(){
+	public Comparable getRoot(){
 		return element;
 	}
 
    // Setea la raiz
-	public void setRoot(Integer item){
+	public void setRoot(Comparable item){
 		element = item;
 	}
 
@@ -69,7 +69,7 @@ public class Abb {
  	}
 
 	// find a specific element in the Abb 
- 	public boolean search(Integer ele){
+ 	public boolean search(Comparable ele){
 		if(element == null)
 			return  false;
 			else{
@@ -77,11 +77,11 @@ public class Abb {
 				return  true;
 			}
 			else{
-				if(ele > element && hd != null){
+				if((ele.compareTo(element) > 0) && hd != null){
 					return  hd.search(ele);
 				}
 				else{
-					if(ele < element && hi != null){
+					if((ele.compareTo(element) < 0) && hi != null){
 						return  hi.search(ele);
 					}
 					else{
@@ -95,7 +95,7 @@ public class Abb {
 	 
 	 	
 	// return de minimun of the Abb
- 	public Integer min(){
+ 	public Comparable min(){
  		if(hi != null && hi.element != null){
  			return hi.min();
  		}
@@ -104,7 +104,7 @@ public class Abb {
 	 	}
 	}
 // return the max of the Abb
- 	public Integer max(){
+ 	public Comparable max(){
  		if(hd != null && hd.element != null){
  			return hd.max();
  		}
@@ -112,23 +112,23 @@ public class Abb {
  	}
 
  //	borrar un elemento
- 	public void delete(Integer ele){
+ 	public void delete(Comparable ele){
  		if(search(ele)){
- 			if(element < ele)
+ 			if(element.compareTo(ele) < 0)
  				hd.delete(ele);
  			else{
- 				if(ele < element)
+ 				if(ele.compareTo(element) < 0)
  					hi.delete(ele);
  				else{
  					if(element == ele){
  						if (hd != null){
- 							Integer min = hd.min();
+ 							Comparable min = hd.min();
 	 						hd.delete(min);
 	 						element = min;
 	 					}
 	 					else{
 	 						if(hi != null){
-	 							Integer max = hi.max();
+	 							Comparable max = hi.max();
 	 							hi.delete(max);
 	 							element = max;
 	 						}
@@ -157,21 +157,21 @@ public class Abb {
  	}
 
  	// inserta un elemento
-	public void insert(Integer ele){
+	public void insert(Comparable ele){
 		if(isEmpty()){
 			element = ele;
 			hi = null;
 			hd = null;
 		}
 		else{
-			if(element < ele){
+			if(element.compareTo(ele) < 0){
 				if (hd != null)
 					hd.insert(ele);
 				else
 					hd = new Abb(ele);
 			}
 			else{
-				if(element > ele){
+				if(element.compareTo(ele) > 0){
 					if (hi != null) 
 						hi.insert(ele);
 					else{
@@ -182,7 +182,7 @@ public class Abb {
 		}
 	}
 
-	public void treeToLs (LinkedList<Integer> ls){
+	public void treeToLs (LinkedList<Comparable> ls){
 		// se recorre el hi
  		if (hi != null){
     	hi.treeToLs(ls);
@@ -194,14 +194,24 @@ public class Abb {
   		hd.treeToLs(ls);
  		}
 	}
-
+	
+	public void convert(Comparable [] array, int n){
+		Abb cargar = new Abb();
+		Comparable min;
+		for(int i = 0; i < n; i++){ cargar.insert(array[i]);}
+		for(int i = 0; i < n; i++){ 
+			min = cargar.min();  
+			array[i] = min;
+		}
+	}
+		
 	public boolean repOk(){
-		LinkedList<Integer> ls = new LinkedList<Integer>(	);
+		LinkedList<Comparable> ls = new LinkedList<Comparable>(	);
 		treeToLs(ls);
 		Integer i = 0;
 		boolean condition = true;
 		while(i < (ls.size() - 1) && condition){
-			condition = ls.get(i) < ls.get(i+1);
+			condition = (ls.get(i).compareTo(ls.get(i+1)) < 0);
 			i++;
 		}
 		//verificar si la lista esta ordenada pos I < pos I+1 de la lsita 
