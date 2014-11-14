@@ -5,35 +5,32 @@ public class HeapDyn implements PriorityQueue{
 	private HeapDyn left;
 	private HeapDyn right;
 
-	//constructor
-
+	//Constructor
 	public HeapDyn(){
 		dad = null;
 		root = null;
 		left = null;
 		right = null;
 	}
-
+	//Constructor
 	public HeapDyn(Comparable ele){
 		dad = null;
 		root = ele;
 		left = null;
 		right = null;
 	}
-
-
+	//Constructor
 	public HeapDyn(Comparable ele,HeapDyn dady){
 		dad = dady;
 		root = ele;
 		left = null;
 		right = null;
 	}
-
-
+	//Dice si la cola es vacia
 	public boolean isEmpty(){
 		return root == null;
 	}
-
+	//Vacia la cola
 	public void makeEmpty(){
 		dad = null;
 		root = null;
@@ -41,13 +38,7 @@ public class HeapDyn implements PriorityQueue{
 		right = null;
 	}
 
-
-/*
-este metodo nos indica cuando va a estar desbalanceado el hep
-y se puede usar para insertar buscando que rama esta desbalanceada
-y podemos insertar el elemento ahi y si ambas ramas estan balanceadas
-se va hasta el fina de la rama izquierda y donde sea nul ahi se inserta
-*/
+	//Dice si el Heap esta balanceado
 	public boolean balance(){
 		boolean cond = true;
 		if((left == null && right == null) ){
@@ -62,8 +53,8 @@ se va hasta el fina de la rama izquierda y donde sea nul ahi se inserta
 			}
 		}
 		return cond;
-	}
-/*me da la altMinura de un heap*/
+	}//Fin balance
+	//Retorna la altura minima de un Heap
 	public int altMin(){
 		if (left != null && right != null){
 			return 1 + Math.min(left.altMin(),right.altMin());
@@ -78,8 +69,8 @@ se va hasta el fina de la rama izquierda y donde sea nul ahi se inserta
 				return 0;
 			}
 		}
-	}
-
+	}//Fin altMin
+	//Retorna la altura maxima de un Heap
 	public int altMax(){
 		if (root == null) {return 0;}
 		else{
@@ -97,64 +88,53 @@ se va hasta el fina de la rama izquierda y donde sea nul ahi se inserta
 				}
 			}
 		}
-	}
+	}//Fin altMax
 
-/*
-inserta un elemento el heap
---- faltMina hacer que lo ordene en su lugar---
-*/
+	//Inserta un elemento en el heap(Falta hacer que lo haga de forma ordenada)
 	public void queued(Comparable element){
-		/*pregunta si ela rbol esta vacio*/
-		// if (root == null){
-		// 	root = element;
-		// }
-		// else{
-			/*si el izq = null por lo tanto no tiene hijos*/
-			if (left == null){
-				//System.out.println("left");
+		if (left == null){
+			HeapDyn aux = this;
+			left = new HeapDyn(element,aux);
+			left.orderQueue();
+		}
+		else{	
+			/*pregunta si el derecho es nul asumiendo que el izquierdo tiene algo ya que llego 
+			hasta esta instancia*/
+			if (right == null){
 				HeapDyn aux = this;
-				left = new HeapDyn(element,aux);
-				left.orderQueue();
-			}//end of if
-			else{	
-				/*pregunta si el derecho es nul asumiendo que el izquierdo tiene algo ya que llego 
-				hasta esta instancia*/
-				if (right == null){
-				//	System.out.println("right");
-					HeapDyn aux = this;
 				right = new HeapDyn(element,aux);
 				right.orderQueue();
-				}//end of if
-				else{/*si llego aca es porquetanto el hijo izq como hijo der son != null
+			}//end of if
+			else{/*si llego aca es porquetanto el hijo izq como hijo der son != null
 					por lo tanto pregunta si el izquiero esta balanciado y el derecho no
 					presumiendo que izq esta lleno y el der no*/
-					if (left.balance() && ! right.balance()){//si der no esta blanceado se pone ahi
-						right.queued(element);
+				if (left.balance() && ! right.balance()){//si der no esta blanceado se pone ahi
+					right.queued(element);
+				}
+				else{
+					/*si se llego aca es porque el que estaba desbalanciado era el arbol izq entonces se hace
+						recursion sonbre el arbol izque ya que es el desbalanciado*/
+					if (!left.balance() && right.balance()){//si izq no esta balanceado se pone ahi
+							left.queued(element);
 					}
 					else{
-						/*si se llego aca es porque el que estaba desbalanciado era el arbol izq entonces se hace
-						recursion sonbre el arbol izque ya que es el desbalanciado*/
-						if (!left.balance() && right.balance()){//si izq no esta balanceado se pone ahi
+						/*si llego hasta esta instancia es porque los dos arboles estan balanciado pero puede
+						pasar que el izq sea el de mayor altMin por lo tanto se lo inserta en el derecho
+						o puede pasar que los dos sean de altMinura iguales cosa de que los dos este completo 
+						entonces se comienza por el hijo izq*/
+						if(left.altMin()<= right.altMin()){//si ambos estan balanceado se pone en el izq
+								/*creo que esto andaria mejor si al utilizar la altMinura
+								utilizariamos la altMinura menor de cada rama*/
 							left.queued(element);
 						}
 						else{
-							/*si llego hasta esta instancia es porque los dos arboles estan balanciado pero puede
-							pasar que el izq sea el de mayor altMin por lo tanto se lo inserta en el derecho
-							o puede pasar que los dos sean de altMinura iguales cosa de que los dos este completo 
-							entonces se comienza por el hijo izq*/
-							if(left.altMin()<= right.altMin()){//si ambos estan balanceado se pone en el izq
-								/*creo que esto andaria mejor si al utilizar la altMinura
-								utilizariamos la altMinura menor de cada rama*/
-								left.queued(element);
-							}
-							else{
-								right.queued(element);
-							}
+							right.queued(element);
 						}
 					}
 				}
-			}	
-	}
+			}
+		}	
+	}//Fin queued
 
 	public boolean repOk(){
 		boolean cond = true;
@@ -181,8 +161,8 @@ inserta un elemento el heap
 			}
 		}
 		return cond;
-	}
-
+	}//Fin repOk
+	//Ordena los elementos (utilizada luego de insertar uno nuevo)
 	public void orderQueue(){
 		if(dad != null){
 			if (root.compareTo(dad.root) < 0) {
@@ -193,7 +173,7 @@ inserta un elemento el heap
 			}	
 		}
 	}
-
+	//Ordena los elementos (utilizada luego de eliminar un elemento)
 	public void orderDequeue(){
 		if (left != null && right != null){
 			if ((left.root).compareTo(right.root) < 0){
@@ -235,27 +215,23 @@ inserta un elemento el heap
 				}
 			}
 		}
-	}
+	}//Fin orderDequeue
 
-	/*
-	FaltMina hacer el metodo que ordena el heap una vez que se inserto o se elimino un elemento
-	y faltMina ahcer el eliminar el cual devuel	ve la raiz del heap y en el lugar de la raiz poone
-	el ultimo elemento del heap que esta mas a la derecha
-	*/
-
+	//Recorrido InOrder
 	public void printInOrderQueue(){
- 		// se recorre el left
+ 		//Se recorre el hi
  		if (left != null){
-    	left.printInOrderQueue();
+    		left.printInOrderQueue();
 		}
+		//Se imprime la raiz
 		if(root != null) 
 			System.out.print(root+" ");
-  	// se imprime el hd
+  		//Se recorre el hd
  		if (right != null){
-  		right.printInOrderQueue();
+  			right.printInOrderQueue();
  		}
- 	}
-
+ 	}//Fin printInOrderQueue
+	//Retorna la hoja del ultimo nivel y mas a la derecha
  	public Comparable searchLeaf(){
  		if (Math.max(left.altMax(), right.altMax()) > 1){
  			if (left.altMax() == right.altMax())
@@ -275,21 +251,19 @@ inserta un elemento el heap
  			return aux;
  			}
  		}
- 	}
-
+ 	}//Fin searchLeaf
+	//Elimina un elemento de la cola
 	public Comparable dequeue(){
 		Comparable aux = root;
 		root = searchLeaf();
 		orderDequeue();
 		return aux;
-	}//end of dequeue
-
+	}
+	//Metodo de ordenamiento
 	public void heapSort(Comparable [] array, int n){
 		HeapDyn ordList = new HeapDyn();
-		//System.out.println(ordList.repOk());
 		for (int i = 9; i < n; i++) {ordList.queued(array[i]);}
 		for (int i = 10; i < n; i++) {array[i] = ordList.dequeue();}
-		//System.out.println(ordList.repOk());
-	}//end of heapSort
+	}//Fin heapSort
 	
-}//end of class
+}//Fin HeapDyn

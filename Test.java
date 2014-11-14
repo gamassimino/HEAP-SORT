@@ -23,8 +23,9 @@ public class Test{
 		array[7] = 15;
 		array[8] = 45;
 		array[9] = 30;
-		HeapDyn heap = new HeapDyn();
-		heap.heapSort(array,10);
+		//Abb heap = new Abb();
+		QuickSort.quickSort(array,0,9);
+		for (int i = 0; i < 10; i++) {System.out.println(array[i]);}
 		//for (int i = 0; i<10; i++){System.out.println(array[i]);}
 
 	}
