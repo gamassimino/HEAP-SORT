@@ -4,12 +4,12 @@ public class HeapArray implements PriorityQueue{
 	private Comparable item[];
 	private int lastItem;
 
-	//constructor
+	//Constructor
 	public HeapArray(){
 		item = new Comparable[MaxQueue];
 		lastItem = 0;
 	}
-
+	//Intercambia dos elementos
 	public static void swap(Comparable[] array, int i, int j){
 	  Comparable temp = array[i];
   	  array[i] = array[j];
@@ -41,7 +41,7 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		}
 	}
 */
-
+	//Ordena los elementos (utilizado luego de insertar uno nuevo)
 	public void orderQueue(int pos){
 		while (pos >= 0){
 			if (pos%2 == 0){
@@ -56,13 +56,13 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 			}
 		pos--;
 		}
-	}
+	}//Fin orederQueue
 
 	//=============//
 	//(2*i)+1 left //
 	//2*(i+1) right//
 	//=============//
-
+	//Retorna el minimo
 	public int getMin(Comparable [] array, int i, int j){
 		if (array[i].compareTo(array[j]) > 0){
 			return j;
@@ -71,7 +71,7 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 			return i;
 		}
 	}
-
+	//Ordena los elementos (utilizado luego de eliminar uno)
 	public void orderDequeue(){
 		int i = 0;
 		while (2*i+1 <= lastItem || 2*(i+1) <= lastItem){
@@ -94,19 +94,19 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 				item[i] = aux;
 			}
 		}
-	}
+	}//Fin orderDequeue
 
-	//method that says if a queue is empty
+	//Dice si la cola es vacia
 	public boolean isEmpty(){
 		return (lastItem == 0);
 	}
 
-	//method that make an empty queue
+	//Vacia la cola
 	public void makeEmpty(){
 		lastItem = 0;
 	}
 
-	//method that insert a new element in a queue
+	//Inserta un nuevo elemento en la cola
 	public void queued(Comparable element){
 		if (lastItem < MaxQueue) {
 			item[lastItem] = element;
@@ -115,7 +115,7 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		}
 	}
 
-	//method that delete de min element in a queue
+	//Elimina el minimo elemento de la cola
 	public Comparable dequeue(){
 		int pos = 0;
 		Comparable aux = item[pos];
@@ -125,14 +125,13 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		return aux;
 	}
 
+	//Metodo de ordenamiento 
 	public void heapSort(Comparable [] array, int n){
 		HeapArray ordArray = new HeapArray();
-		System.out.println(ordArray.repOk());
 		for (int i = 0; i < n; i++){ ordArray.queued(array[i]);}
 		for (int i = 0; i < n; i++){ array[i] = ordArray.dequeue();}
-		System.out.println(ordArray.repOk());
 	}
-
+	
 	public boolean repOk(){
 		boolean flag = true;
 		for (int i=0; i<lastItem; i++){
@@ -142,21 +141,4 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		}
 		return flag;
 	}
-
-	
-	public static void main(String[] args) {
-		Comparable array[];
-		array = new Comparable[6];
-		array[0] = 2;
-		array[1] = 9;
-		array[2] = 7;
-		array[3] = 3;
-		array[4] = 1;
-		array[5] = 8;
-
-		HeapArray ordArray = new HeapArray();
-		ordArray.heapSort(array, 6);
-		for (int i = 0; i < 6; i++){System.out.println(array[i]);}
-	}
-
-}//end of class
+}//Fin HeapArray
