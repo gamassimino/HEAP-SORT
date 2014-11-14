@@ -41,36 +41,7 @@ public class Abb {
 		hd = null;
 	}
 
-   //Recorrido preOrder
- 	public void printPreOrder(){
- 		//Se imprime la raiz
- 		if(element != null) 
-  			System.out.print(element+" ");
-    	//Se recorre el hi
-  		if (hi != null){
-       		hi.printPreOrder();
-		}
-		//Se recorre el hd
-   		if (hd != null){
-       		hd.printPreOrder();
-		}
- 	}//Fin printPreOrder
-
-   //Recorrido postOrder
- 	public void printPostOrder(){
- 		//Se recorre el hi
-  		if (hi != null){
-      		hi.printPostOrder();
-		}
-		//Se recorre el hd
-  		if (hd != null){
-      		hd.printPostOrder();
-		}
-		//Se imprime la raiz
-		if(element != null) 
-  			System.out.print(element+" ");
- 	}//Fin printPostOrder
-
+   
 	//Recorrido inOrder
  	public void printInOrder(){
  		//Se recorre el hi
