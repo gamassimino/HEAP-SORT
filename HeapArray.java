@@ -16,31 +16,6 @@ public class HeapArray implements PriorityQueue{
 	  array[j] = temp;
  	}
 
-/*
-REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
-	public void orderQueue(int pos){
-		boolean flag = true;
-		while ((pos >= 0)&&(flag)){
-			if (pos%2 == 0){
-				if (item[pos].compareTo(item[(pos-1)/2]) < 0){
-					swap(item, pos, (pos-1)/2);
-				}
-				else{
-					flag = false;
-				}
-			}
-			else{
-				if (item[pos].compareTo(item[pos/2]) < 0){
-					swap(item, pos, (pos-1)/2);
-				}
-				else{
-					flag = false; 
-				}
-			}
-		pos--;
-		}
-	}
-*/
 	//Ordena los elementos (utilizado luego de insertar uno nuevo)
 	public void orderQueue(int pos){
 		while (pos >= 0){
@@ -58,10 +33,6 @@ REVISAR SI SE PUEDE HACER MAS EFICIENTE CON EL USO DE UNA CONDICION
 		}
 	}//Fin orederQueue
 
-	//=============//
-	//(2*i)+1 left //
-	//2*(i+1) right//
-	//=============//
 	//Retorna el minimo
 	public int getMin(Comparable [] array, int i, int j){
 		if (array[i].compareTo(array[j]) > 0){
