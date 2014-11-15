@@ -6,25 +6,36 @@ public class HeapDyn implements PriorityQueue{
 	private HeapDyn right;
 
 
-	//Constructor
+	/*
+	genera un heap con una raiz
+	*/
 	public HeapDyn(Comparable ele){
 		dad = null;
 		root = ele;
 		left = null;
 		right = null;
 	}
-	//Constructor
+
+	/*
+	genera un heap con la raiz y el padre de ese nodo
+	*/
 	public HeapDyn(Comparable ele,HeapDyn dady){
 		dad = dady;
 		root = ele;
 		left = null;
 		right = null;
 	}
-	//Dice si la cola es vacia
+
+	/*
+	devuelve true si el hep esta vacio
+	*/
 	public boolean isEmpty(){
 		return root == null;
 	}
-	//Vacia la cola
+
+	/*
+	me inicializa la cola
+	*/
 	public void makeEmpty(){
 		dad = null;
 		root = null;
@@ -32,7 +43,11 @@ public class HeapDyn implements PriorityQueue{
 		right = null;
 	}
 
-	//Dice si el Heap esta balanceado
+	/*
+	retorna TRUE si el heap esta balanceado
+	retorna FALSE si el hep no lo esta
+	balanceado altMinima(left) == altMinima(right)
+	*/
 	public boolean balance(){
 		boolean cond = true;
 		if((left == null && right == null) ){
@@ -47,8 +62,16 @@ public class HeapDyn implements PriorityQueue{
 			}
 		}
 		return cond;
-	}//Fin balance
-	//Retorna la altura minima de un Heap
+	}
+
+	/*
+	retorna la altura minima de un arbol, esta orientada al uso que le damos en
+	los metodos de esta clase por eso puede tener variaciones pero la idea es
+	
+	altMin :: heap -> int
+	null = 0
+	node(left x right) = 1 + min(altMin(left), altMin(right))
+	*/
 	public int altMin(){
 		if (left != null && right != null){
 			return 1 + Math.min(left.altMin(),right.altMin());
@@ -63,68 +86,67 @@ public class HeapDyn implements PriorityQueue{
 				return 0;
 			}
 		}
-	}//Fin altMin
+	}
 
-
-
-
-	//Retorna la altura maxima de un Heap
+	/*
+	retorna la altura maxima de un arbol, esta orientada al uso que le damos en 
+	los metodos de esta clase or eso puede tener variaciones pero la idea es
+	
+	altMax :: heap -> int
+	null = 0
+	node(left x right) = 1 + max(altMax(left), altMax(right))
+	*/
 	public int altMax(){
-		// if (root == null) {
-		// 	return 0;
-		// }
-		// else{
-			if (left != null && right != null){
-				return 1 + Math.max(left.altMax(),right.altMax());
-			}
-			else{
-				if (left != null)
-					return 1 + left.altMax();
-				else{
-					if (right != null)
-					return 1 + right.altMax();
-				else 
-					return 0;
-				}
-			//}
+		if (left != null && right != null){
+			return 1 + Math.max(left.altMax(),right.altMax());
 		}
-	}//Fin altMax
+		else{
+			if (left != null)
+				return 1 + left.altMax();
+			else{
+				if (right != null)
+				return 1 + right.altMax();
+			else 
+				return 0;
+			}
+		}
+	}
 
-	//Inserta un elemento en el heap(Falta hacer que lo haga de forma ordenada)
+	/*
+	inserta un nuevo elemento en el heap en el brazo mas a la derecha que este vacio
+	si el nivel esta completo comienza insertando en el siguiente nivel lo mas a la 
+	izquierda y luego lo va patiando hacia arriba si este es menor que el padre 
+	y asi sucesivamente
+	*/
 	public void queued(Comparable element){
+		/*si el izq esta vacio entoces o inserta en el izq si no, quiere decir que el
+		vacio es el brazo derecho*/
 		if (left == null){
 			HeapDyn aux = this;
 			left = new HeapDyn(element,aux);
 			left.orderQueue();
 		}
 		else{	
-			/*pregunta si el derecho es nul asumiendo que el izquierdo tiene algo ya que llego 
-			hasta esta instancia*/
 			if (right == null){
 				HeapDyn aux = this;
 				right = new HeapDyn(element,aux);
 				right.orderQueue();
-			}//end of if
-			else{/*si llego aca es porquetanto el hijo izq como hijo der son != null
-					por lo tanto pregunta si el izquiero esta balanciado y el derecho no
-					presumiendo que izq esta lleno y el der no*/
-				if (left.balance() && ! right.balance()){//si der no esta blanceado se pone ahi
+			}
+			else{/*si llega hasta aca queire decir que izq e der tenian algo lo que nos indica que no es
+				el ultimo nivel del arbol*/
+				if (left.balance() && ! right.balance()){/*si der esta desbalanciado entonces va a ese brazo*/
 					right.queued(element);
 				}
 				else{
-					/*si se llego aca es porque el que estaba desbalanciado era el arbol izq entonces se hace
-						recursion sonbre el arbol izque ya que es el desbalanciado*/
-					if (!left.balance() && right.balance()){//si izq no esta balanceado se pone ahi
-							left.queued(element);
+					if (!left.balance() && right.balance()){/*si izq no esta balanceado se va a ese brazo*/
+						left.queued(element);
 					}
 					else{
-						/*si llego hasta esta instancia es porque los dos arboles estan balanciado pero puede
+						/*si llego hasta esta instancia es porque los dos brazos estan balanciado pero puede
 						pasar que el izq sea el de mayor altMin por lo tanto se lo inserta en el derecho
 						o puede pasar que los dos sean de altMinura iguales cosa de que los dos este completo 
 						entonces se comienza por el hijo izq*/
-						if(left.altMin()<= right.altMin()){//si ambos estan balanceado se pone en el izq
-								/*creo que esto andaria mejor si al utilizar la altMinura
-								utilizariamos la altMinura menor de cada rama*/
+						if(left.altMin()<= right.altMin()){/*si ambos estan balanceado se pone en el izq*/
 							left.queued(element);
 						}
 						else{
@@ -134,7 +156,7 @@ public class HeapDyn implements PriorityQueue{
 				}
 			}
 		}	
-	}//Fin queued
+	}
 
 	public boolean repOk(){
 		boolean cond = true;
@@ -161,70 +183,83 @@ public class HeapDyn implements PriorityQueue{
 			}
 		}
 		return cond;
-	}//Fin repOk
-	//Ordena los elementos (utilizada luego de insertar uno nuevo)
+	}
+
+	/*
+	ordena los elementos una ves que se inserto, lo patea hacia arriba hasta encontrar su lugar
+	*/
 	public void orderQueue(){
+		boolean cond = false;
 		if(dad != null){
 			if (root.compareTo(dad.root) < 0) {
-				 //System.out.println("raiz = "+root);
+				cond = true;
 				Comparable aux = root;
 				root = dad.root; 
 				dad.root = aux;
-				dad.orderQueue();
+				if(cond)
+					dad.orderQueue();
 			}	
 		}
 	}
-	//Ordena los elementos (utilizada luego de eliminar un elemento)
+	/*
+	ordena los elementos una ves que se elimino, compara con el minimo de sus dos hijos y lo intercambia 
+	por el menor de los dos y asi sucesivamente hasta hallar su posicion
+	*/
 	public void orderDequeue(){
+		boolean cond = false;
 		if (left != null && right != null){
 			if ((left.root).compareTo(right.root) < 0){
 				if ((left.root).compareTo(root) < 0){
+					cond = true;
 					Comparable aux = root;
 					root = left.root;
 					left.root = aux;
 				}
-				left.orderDequeue();
+				if(cond)
+					left.orderDequeue();
 			}
 			else{
 				if ((right.root).compareTo(root) < 0){
+					cond = true;
 					Comparable aux = root;
 					root = right.root;
 					right.root = aux;
 				}
-				right.orderDequeue();
+				if(cond)
+					right.orderDequeue();
 			}
+
 		}
 		else{
-			if (left != null){
-				if ((left.root).compareTo(right.root) < 0){
-					if ((left.root).compareTo(root) < 0){
-						Comparable aux = root;
-						root = left.root;
-						left.root = aux;
-					}
+			if(left != null){
+				if ((left.root).compareTo(root) < 0){
+					cond = true;
+					Comparable aux = root;
+					root = left.root;
+					left.root = aux;
+				}
+				if(cond)
 					left.orderDequeue();
-				}
-			}
-			else{
-				if(right != null){
-					if ((right.root).compareTo(root) < 0){
-						Comparable aux = root;
-						root = right.root;
-						right.root = aux;
-					}
-					right.orderDequeue();
-				}
 			}
 		}
-	}//Fin orderDequeue
+	}
 
-	//Retorna la hoja del ultimo nivel y mas a la derecha
+	/*
+	retorna la hoja ultima mas a la derecha	
+	*/
  	public Comparable searchLeaf(){
+ 		/*
+		si la altura = 0 por nuestro altMax quiere decir que tiene un solo elemento
+		entonces lo retorna y setea esa posicion en null
+		*/
  		if (altMax() == 0){
  			Comparable aux = root;
  			root = null;
  			return aux;
  		}
+ 		/*
+		como la altura es mayor a uno quiere decir que tiene elementos
+		*/
  		if (altMax() > 1){
  			if (left.altMax() > right.altMax())
  				return left.searchLeaf();
@@ -232,6 +267,10 @@ public class HeapDyn implements PriorityQueue{
  				return right.searchLeaf();
  		}
  		else{
+ 			/*
+			si no esta balanciado entonces el que busco es el de la izquierda ya que no puede
+			tener algo el der y estar vacio el iz
+			*/
  			if (!balance()){
  				Comparable aux = left.root;
  				left = null;
@@ -244,50 +283,29 @@ public class HeapDyn implements PriorityQueue{
  				return aux;
  			}
  		}
- 	}//Fin searchLeaf
+ 	}
 
-
-
-	public void printInOrderQueue(){
- 		//Se recorre el hi
- 		if (left != null){
-    		left.printInOrderQueue();
-		}
-		//Se imprime la raiz
-		if(root != null) 
-			System.out.print(root+" ");
-  		//Se recorre el hd
- 		if (right != null){
-  			right.printInOrderQueue();
- 		}
- 	}//Fin printInOrderQueue
-
-
-	//Elimina un elemento de la cola
+	/*
+	eliminar el elemento y ordena al mismo tiempo
+	*/
 	public Comparable dequeue(){
 		Comparable aux = root;
-		System.out.println(root);
 		root = searchLeaf();
 		orderDequeue();
 		return aux;
 	}
-	//Metodo de ordenamiento
+
+	/*
+	HeapSort, saca todos los elementos del arreglo lo inserta e un heap y luego saca
+	uno por uno y lo vuelve a insertar en ela rreglo
+	*/
 	public static void heapSort(Comparable [] array, int n){
 		HeapDyn heap = new HeapDyn(array[0]);
 		for (int i = 1; i < n; i++) {
 			heap.queued(array[i]);
 		}
-		
-		heap.printInOrderQueue();
-		System.out.println();
-
 		for (int i = 0; i < n; i++) {
-
 			array[i] = heap.dequeue();
-
-			heap.printInOrderQueue();
-			System.out.println();
 		}
-	}//Fin heapSort
-	
-}//Fin HeapDyn
+	}
+}
