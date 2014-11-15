@@ -8,7 +8,7 @@ public interface PriorityQueue{
 
 	public abstract Comparable dequeue();
 
-	public abstract void heapSort(Comparable [] array, int n);
+	//public static abstract void heapSort(Comparable [] array, int n);
 
 	public abstract boolean repOk();
 }

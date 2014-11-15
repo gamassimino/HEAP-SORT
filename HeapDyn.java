@@ -5,13 +5,7 @@ public class HeapDyn implements PriorityQueue{
 	private HeapDyn left;
 	private HeapDyn right;
 
-	//Constructor
-	public HeapDyn(){
-		dad = null;
-		root = null;
-		left = null;
-		right = null;
-	}
+
 	//Constructor
 	public HeapDyn(Comparable ele){
 		dad = null;
@@ -70,10 +64,16 @@ public class HeapDyn implements PriorityQueue{
 			}
 		}
 	}//Fin altMin
+
+
+
+
 	//Retorna la altura maxima de un Heap
 	public int altMax(){
-		if (root == null) {return 0;}
-		else{
+		// if (root == null) {
+		// 	return 0;
+		// }
+		// else{
 			if (left != null && right != null){
 				return 1 + Math.max(left.altMax(),right.altMax());
 			}
@@ -84,9 +84,9 @@ public class HeapDyn implements PriorityQueue{
 					if (right != null)
 					return 1 + right.altMax();
 				else 
-					return 1;
+					return 0;
 				}
-			}
+			//}
 		}
 	}//Fin altMax
 
@@ -166,6 +166,7 @@ public class HeapDyn implements PriorityQueue{
 	public void orderQueue(){
 		if(dad != null){
 			if (root.compareTo(dad.root) < 0) {
+				 //System.out.println("raiz = "+root);
 				Comparable aux = root;
 				root = dad.root; 
 				dad.root = aux;
@@ -217,7 +218,36 @@ public class HeapDyn implements PriorityQueue{
 		}
 	}//Fin orderDequeue
 
-	//Recorrido InOrder
+	//Retorna la hoja del ultimo nivel y mas a la derecha
+ 	public Comparable searchLeaf(){
+ 		if (altMax() == 0){
+ 			Comparable aux = root;
+ 			root = null;
+ 			return aux;
+ 		}
+ 		if (altMax() > 1){
+ 			if (left.altMax() > right.altMax())
+ 				return left.searchLeaf();
+ 			else
+ 				return right.searchLeaf();
+ 		}
+ 		else{
+ 			if (!balance()){
+ 				Comparable aux = left.root;
+ 				left = null;
+ 				
+ 				return aux;
+ 			}
+			else{
+				Comparable aux = right.root;
+				right = null;
+ 				return aux;
+ 			}
+ 		}
+ 	}//Fin searchLeaf
+
+
+
 	public void printInOrderQueue(){
  		//Se recorre el hi
  		if (left != null){
@@ -231,39 +261,33 @@ public class HeapDyn implements PriorityQueue{
   			right.printInOrderQueue();
  		}
  	}//Fin printInOrderQueue
-	//Retorna la hoja del ultimo nivel y mas a la derecha
- 	public Comparable searchLeaf(){
- 		if (Math.max(left.altMax(), right.altMax()) > 1){
- 			if (left.altMax() == right.altMax())
- 				return right.searchLeaf();
- 			else
- 				return left.searchLeaf();
- 		}
- 		else{
- 			if (right == null){
- 				Comparable aux = left.root;
- 				left.root = null;
- 				return aux;
- 			}
- 			else{
- 			Comparable aux = right.root;
- 			right.root = null;
- 			return aux;
- 			}
- 		}
- 	}//Fin searchLeaf
+
+
 	//Elimina un elemento de la cola
 	public Comparable dequeue(){
 		Comparable aux = root;
+		System.out.println(root);
 		root = searchLeaf();
 		orderDequeue();
 		return aux;
 	}
 	//Metodo de ordenamiento
-	public void heapSort(Comparable [] array, int n){
-		HeapDyn ordList = new HeapDyn();
-		for (int i = 9; i < n; i++) {ordList.queued(array[i]);}
-		for (int i = 10; i < n; i++) {array[i] = ordList.dequeue();}
+	public static void heapSort(Comparable [] array, int n){
+		HeapDyn heap = new HeapDyn(array[0]);
+		for (int i = 1; i < n; i++) {
+			heap.queued(array[i]);
+		}
+		
+		heap.printInOrderQueue();
+		System.out.println();
+
+		for (int i = 0; i < n; i++) {
+
+			array[i] = heap.dequeue();
+
+			heap.printInOrderQueue();
+			System.out.println();
+		}
 	}//Fin heapSort
 	
 }//Fin HeapDyn
