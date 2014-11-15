@@ -19,43 +19,12 @@ public class Abb {
 		element = null;
 	} 
 
-	//Retorna la raiz
-	public Comparable getRoot(){
-		return element;
-	}
-
-   //Setea la raiz
-	public void setRoot(Comparable item){
-		element = item;
-	}
-
-   //Dice si el arbol es vacio
+	   //Dice si el arbol es vacio
  	public boolean isEmpty(){
  		return element == null;
  	}
 
-   //Remueve todo los nodos del arbol
-	public void makeEmpty(){
-		element = null;
-		hi = null;
-		hd = null;
-	}
 
-   
-	//Recorrido inOrder
- 	public void printInOrder(){
- 		//Se recorre el hi
- 		if (hi != null){
-    		hi.printInOrder();
-		}
-		//Se imprime la raiz
-		if(element != null) 
-			System.out.print(element+" ");
-  		//Se recorre el hd
- 		if (hd != null){
-  		hd.printInOrder();
- 		}
- 	}//Fin printInOrder
  	
 	//Encontrar un elemento especifico en el arbol 
  	public boolean search(Comparable ele){
@@ -156,41 +125,16 @@ public class Abb {
 	}//Fin insert
 	
 	
-	public void treeToLs (LinkedList<Comparable> ls){
-		//Se recorre el hi
- 		if (hi != null){
-    		hi.treeToLs(ls);
-		}
-		if(element != null) 
-			ls.add(element);
-  		//Se recorre el hd
-  		if (hd != null){
-  			hd.treeToLs(ls);
- 		}
-	}//Fin treeTols
-	
 	//Carga los elementos de un array en un Abb y los retorna al array(Ordenados)
-	public void convert(Comparable [] array, int n){
-		Abb cargar = new Abb();
+	public static void treeSort(Comparable [] array, int n){
+		Abb load = new Abb();
 		Comparable min;
-		for(int i = 0; i < n; i++){ cargar.insert(array[i]);}
+		for(int i = 0; i < n; i++){ load.insert(array[i]);}
 		for(int i = 0; i < n; i++){ 
-			min = cargar.min();
-			cargar.delete(min);  
+			min = load.min();
+			load.delete(min);  
 			array[i] = min;
 		}
 	}//Fin convert
 		
-	public boolean repOk(){
-		LinkedList<Comparable> ls = new LinkedList<Comparable>(	);
-		treeToLs(ls);
-		Integer i = 0;
-		boolean condition = true;
-		while(i < (ls.size() - 1) && condition){
-			condition = (ls.get(i).compareTo(ls.get(i+1)) < 0);
-			i++;
-		}
-		//Verificar si la lista esta ordenada pos I < pos I+1 de la lsita 
-		return condition;
-	}//Fin repOk
 }//Fin clase Abb
