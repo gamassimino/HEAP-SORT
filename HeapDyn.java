@@ -158,33 +158,7 @@ public class HeapDyn implements PriorityQueue{
 		}	
 	}
 
-	public boolean repOk(){
-		boolean cond = true;
-		if (left != null && right != null){
-			if(root.compareTo(right.root) <= 0 && root.compareTo(left.root) <= 0)
-				cond = left.repOk() && right.repOk();
-			else
-				cond = false;
-		}
-		else{
-			if (left != null ){
-				if(root.compareTo(left.root) <= 0)
-					System.out.println(root);
-				else
-					cond = false;
-			}
-			else{
-				if (right != null){
-					if(root.compareTo(right.root) <= 0)
-						cond = right.repOk();
-					else
-						cond = false;
-				}
-			}
-		}
-		return cond;
-	}
-
+	
 	/*
 	ordena los elementos una ves que se inserto, lo patea hacia arriba hasta encontrar su lugar
 	*/
