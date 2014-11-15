@@ -1,6 +1,6 @@
 public class HeapArray implements PriorityQueue{
-	
-	private static final int MaxQueue = 100;
+	//10000 ANDA
+	private static final int MaxQueue = 1000000;
 	private Comparable item[];
 	private int lastItem;
 
@@ -18,20 +18,28 @@ public class HeapArray implements PriorityQueue{
 
 	//Ordena los elementos (utilizado luego de insertar uno nuevo)
 	public void orderQueue(int pos){
-		while (pos >= 0){
+		boolean flag = false; //bandera de condicion para terminar de ciclar
+		while ((pos >= 0)&&(flag == false)){
 			if (pos%2 == 0){
 				if (item[pos].compareTo(item[(pos-1)/2]) < 0){
 					swap(item, pos, (pos-1)/2);
 				}
+				else{
+					flag = true;
+				}
+
 			}
 			else{
 				if (item[pos].compareTo(item[pos/2]) < 0){
 					swap(item, pos, (pos-1)/2);
 				}
+				else{
+					flag = true;
+				}
 			}
 		pos--;
 		}
-	}//Fin orederQueue
+	}
 
 	//Retorna el minimo
 	public int getMin(Comparable [] array, int i, int j){
@@ -42,6 +50,7 @@ public class HeapArray implements PriorityQueue{
 			return i;
 		}
 	}
+
 	//Ordena los elementos (utilizado luego de eliminar uno)
 	public void orderDequeue(){
 		int i = 0;
@@ -65,7 +74,7 @@ public class HeapArray implements PriorityQueue{
 				item[i] = aux;
 			}
 		}
-	}//Fin orderDequeue
+	}
 
 	//Dice si la cola es vacia
 	public boolean isEmpty(){
