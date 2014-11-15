@@ -1,32 +1,16 @@
+import java.util.Random;
 public class Test{
 	public static void main(String[] args) {
 		
-		//heap.queued(3);
-		//heap.queued(8);
-		//heap.queued(6);
-		//heap.queued(7);
-		//heap.queued(1);
-		//heap.queued(2);
-		//heap.queued(9);
-		//heap.queued(15);
-		//heap.queued(45);
-		//heap.queued(30);
+		Random num = new Random();
+		int maximo = 10000;
 		Comparable array[];
-		array = new Comparable[10];
-		array[0] = 3;
-		array[1] = 8;
-		array[2] = 6;
-		array[3] = 7;
-		array[4] = 1;
-		array[5] = 2;
-		array[6] = 9;
-		array[7] = 15;
-		array[8] = 45;
-		array[9] = 30;
-		//Abb heap = new Abb();
-		QuickSort.quickSort(array,0,9);
-		for (int i = 0; i < 10; i++) {System.out.println(array[i]);}
-		//for (int i = 0; i<10; i++){System.out.println(array[i]);}
+		array = new Comparable[maximo];
+		HeapDyn heap = new HeapDyn(5);
+		
+		for (int i = 0; i < maximo; i++) {array[i]=num.nextInt()*5;}
+		heap.heapSort(array,maximo);
+		//for (int i = 0; i < maximo; i++) {System.out.println(array[i]);}
 
 	}
 }
