@@ -1,5 +1,5 @@
 public class HeapArray implements PriorityQueue{
-	//10000 ANDA
+
 	private static final int MaxQueue = 1000000;
 	private Comparable item[];
 	private int lastItem;
@@ -20,24 +20,25 @@ public class HeapArray implements PriorityQueue{
 	public void orderQueue(int pos){
 		boolean flag = false; //bandera de condicion para terminar de ciclar
 		while ((pos >= 0)&&(flag == false)){
-			if (pos%2 == 0){
-				if (item[pos].compareTo(item[(pos-1)/2]) < 0){
+			if (pos%2 == 0){//los hijos derechos se encuentran en posiciones pares
+				if (item[pos].compareTo(item[(pos-1)/2]) < 0){// (pos-1)/2 posicion del padre del hijo derecho
 					swap(item, pos, (pos-1)/2);
 				}
 				else{
 					flag = true;
 				}
+				pos = ((pos-1)/2);
 
 			}
-			else{
-				if (item[pos].compareTo(item[pos/2]) < 0){
-					swap(item, pos, (pos-1)/2);
+			else{//los hijos izquierdos se encuentran en posiciones impares
+				if (item[pos].compareTo(item[(pos/2)]) < 0){// pos/2 posicion del padre del hijo izquierdo
+					swap(item, pos, (pos/2));
 				}
 				else{
 					flag = true;
 				}
+				pos = (pos/2);
 			}
-		pos--;
 		}
 	}
 
@@ -54,7 +55,7 @@ public class HeapArray implements PriorityQueue{
 	//Ordena los elementos (utilizado luego de eliminar uno)
 	public void orderDequeue(){
 		int i = 0;
-		while (2*i+1 <= lastItem || 2*(i+1) <= lastItem){
+		while (2*i+1 <= lastItem || 2*(i+1) <= lastItem){// 2*i+1 posicion del hijo izquierdo; 2*(i+1) posicion del hijo derecho
 			int j = i;
 			int hi = 0;
 			int hd = 0;
