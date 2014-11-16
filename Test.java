@@ -6,34 +6,55 @@ public class Test{
 		int maximo = 1000001;
 		Comparable array[];
 		array = new Comparable[maximo];
-		Comparable arrray[];
-		arrray = new Comparable[maximo];
+
+		long TInicio, TFin, tiempo; //variables para controlar el timepo
 		
-		for (int i = 0; i < maximo; i++){
-			array[i]=num.nextInt()*5;
-			arrray[i]=array[i];
-		}
-
-		System.out.println(" ");
-		System.out.println(" HEAPSORT ");
-		System.out.println(" ");
-		HeapArray heap = new HeapArray();
-		heap.heapSort(array,1000000);
-		for (int i = 0; i < 1000000; i++) {System.out.println(array[i]);}
-
-		System.out.println(" ");
-		System.out.println(" TREESORT ");
-		System.out.println(" ");
-		Abb tree = new Abb();
-		tree.treeSort(arrray,1000000);
-		for (int i = 0; i < 1000000; i++) {System.out.println(arrray[i]);}
+		//================================HEAP-ARRAY================================
+		//HeapArray heap = new HeapArray();
+		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
+		//TInicio = System.currentTimeMillis();
+		//heap.heapSort(array,10);
+		//TFin = System.currentTimeMillis();
+		//tiempo = TFin - TInicio;
+		//for (int i = 0; i < 10; i++) {System.out.println(array[i]);}
+		//System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+		//================================HEAP-ARRAY================================
 
 
+		//================================HEAP-DYN================================
+		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
+		//HeapDyn heap = new HeapDyn(array[0]);
+		//TInicio = System.currentTimeMillis();
+		//heap.heapSort(array,1000000);
+		//TFin = System.currentTimeMillis();
+		//tiempo = TFin - TInicio;
+		//for (int i = 0; i < 1000000; i++) {System.out.println(array[i]);}
+		//System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+		//================================HEAP-DYN================================
+
+
+		//================================TREE-SORT================================
+		//Abb tree = new Abb();
+		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
+		//TInicio = System.currentTimeMillis();
+		//tree.treeSort(array,10);
+		//TFin = System.currentTimeMillis();
+		//tiempo = TFin - TInicio;
+		//for (int i = 0; i < 10; i++) {System.out.println(array[i]);}
+		//System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+		//================================TREE-SORT================================
+
+		//================================QUICK-SORT================================
+		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
+		//TInicio = System.currentTimeMillis();
+		//QuickSort.quickSort(array,0,1000000);
+		//TFin = System.currentTimeMillis();
+		//tiempo = TFin - TInicio;
+		//for (int i = 0; i < 1000000; i++) {System.out.println(array[i]);}
+		//System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+		//================================QUICK-SORT================================
 
 	}
 }
 
-//1000000 1s quickSort
-//1000000 4s treeSort
-//1000000 1s heapSort array
 
