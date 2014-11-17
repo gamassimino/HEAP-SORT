@@ -7,6 +7,4 @@ public interface PriorityQueue{
 	public abstract void queued(Comparable element);
 
 	public abstract Comparable dequeue();
-
-	public abstract boolean repOk();
 }
