@@ -10,10 +10,9 @@ public class Test{
 		long TInicio, TFin, tiempo; //variables para controlar el timepo
 		
 		//================================HEAP-ARRAY================================
-		//HeapArray heap = new HeapArray();
 		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
 		//TInicio = System.currentTimeMillis();
-		//heap.heapSort(array,10);
+		//HeapArray.heapSort(array,10);
 		//TFin = System.currentTimeMillis();
 		//tiempo = TFin - TInicio;
 		//for (int i = 0; i < 10; i++) {System.out.println(array[i]);}
@@ -23,9 +22,8 @@ public class Test{
 
 		//================================HEAP-DYN================================
 		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
-		//HeapDyn heap = new HeapDyn(array[0]);
 		//TInicio = System.currentTimeMillis();
-		//heap.heapSort(array,1000000);
+		//HeapDyn.heapSort(array,1000000);
 		//TFin = System.currentTimeMillis();
 		//tiempo = TFin - TInicio;
 		//for (int i = 0; i < 1000000; i++) {System.out.println(array[i]);}
@@ -34,10 +32,9 @@ public class Test{
 
 
 		//================================TREE-SORT================================
-		//Abb tree = new Abb();
 		//for (int i = 0; i < maximo; i++){array[i]=num.nextInt()*999999;}
 		//TInicio = System.currentTimeMillis();
-		//tree.treeSort(array,10);
+		//Abb.treeSort(array,10);
 		//TFin = System.currentTimeMillis();
 		//tiempo = TFin - TInicio;
 		//for (int i = 0; i < 10; i++) {System.out.println(array[i]);}
